@@ -51,4 +51,17 @@ storageCampus.get("/editoriales", (req,res)=>{
     )
 })
 
+storageCampus.get("/estadoLibro", (req,res)=>{
+    con.query(
+        /*sql*/ `SELECT estado_libro.* FROM estado_libro`,
+        (err,data)=>{
+            if (err) {
+               res.status(401).send("Error en la solicitud") 
+            }else{
+                res.send(data)
+            }
+        }
+    )
+})
+
 export default storageCampus;
