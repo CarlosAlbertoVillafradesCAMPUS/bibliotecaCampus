@@ -38,4 +38,17 @@ storageCampus.get("/categorias", (req,res)=>{
     )
 })
 
+storageCampus.get("/editoriales", (req,res)=>{
+    con.query(
+        /*sql*/ `SELECT editorial.* FROM editorial`,
+        (err,data)=>{
+            if (err) {
+               res.status(401).send("Error en la solicitud") 
+            }else{
+                res.send(data)
+            }
+        }
+    )
+})
+
 export default storageCampus;
