@@ -90,4 +90,17 @@ storageCampus.get("/prestamos", (req,res)=>{
     )
 })
 
+storageCampus.get("/reservas", (req,res)=>{
+    con.query(
+        /*sql*/ `SELECT reserva.*, usuario.nombre AS "nombre_usuario", libro.titulo AS "libro_reservado" FROM reserva INNER JOIN usuario ON reserva.id_usuario = usuario.id_usuario INNER JOIN libro ON reserva.id_libro = libro.id_libro`,
+        (err,data)=>{
+            if (err) {
+               res.status(401).send("Error en la solicitud") 
+            }else{
+                res.send(data)
+            }
+        }
+    )
+})
+
 export default storageCampus;
