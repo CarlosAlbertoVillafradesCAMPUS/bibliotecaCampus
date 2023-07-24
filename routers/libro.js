@@ -79,6 +79,19 @@ storageLibros.get("/categoria/:id", (req,res)=>{
     )
 })
 
+storageLibros.get("/paginas", (req,res)=>{
+    con.query(
+        /*sql*/ ` SELECT id_libro, titulo, num_paginas, autor.nombre FROM libro INNER JOIN autor ON libro.id_autor = autor.id_autor WHERE num_paginas > 500`,
+        (err,data)=>{
+            if (err) {
+               res.status(401).send("Error en la solicitud") 
+            }else{
+                res.send(data)
+            }
+        }
+    )
+})
+
 
 
 export default storageLibros;
