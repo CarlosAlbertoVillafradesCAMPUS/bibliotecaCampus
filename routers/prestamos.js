@@ -24,4 +24,17 @@ storagePrestamos.get("/", (req,res)=>{
         }
     )
 })
+
+storagePrestamos.get("/usuario/:nombre", (req,res)=>{
+    con.query(
+        /*sql*/ `SELECT libro.id_libro, libro.titulo, usuario.id_usuario, usuario.nombre, usuario.apellido, prestamo.id_prestamo, prestamo.fecha_prestamo FROM libro INNER JOIN prestamo ON libro.id_libro = prestamo.id_libro INNER JOIN usuario ON prestamo.id_usuario = usuario.id_usuario WHERE usuario.nombre = ?`,req.params.nombre,
+        (err,data)=>{
+            if (err) {
+               res.status(401).send("Error en la solicitud") 
+            }else{
+                res.send(data)
+            }
+        }
+    )
+})
 export default storagePrestamos;
