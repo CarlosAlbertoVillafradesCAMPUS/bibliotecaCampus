@@ -66,4 +66,18 @@ storageLibros.get("/autor/:nombre", (req,res)=>{
     )
 })
 
+storageLibros.get("/categoria/:id", (req,res)=>{
+    con.query(
+        /*sql*/ `SELECT libro.id_libro, libro.titulo, autor.id_autor, autor.nombre, categoria.nombre FROM libro INNER JOIN autor ON libro.id_autor = autor.id_autor INNER JOIN categoria ON libro.id_categoria = categoria.id_categoria WHERE categoria.id_categoria = ?`, req.params.id,
+        (err,data)=>{
+            if (err) {
+               res.status(401).send("Error en la solicitud") 
+            }else{
+                res.send(data)
+            }
+        }
+    )
+})
+
+
 export default storageLibros;
