@@ -51,4 +51,19 @@ storageLibros.get("/prestados", (req,res)=>{
     )
 })
 
+//?nombre = "" con ese querya podemos listar los libros de un autor especifico
+
+storageLibros.get("/autor/:nombre", (req,res)=>{
+    con.query(
+        /*sql*/ `SELECT libro.id_libro, libro.titulo, autor.id_autor, autor.nombre FROM libro INNER JOIN autor ON libro.id_autor = autor.id_autor WHERE autor.nombre = ?`, req.params.nombre,
+        (err,data)=>{
+            if (err) {
+               res.status(401).send("Error en la solicitud") 
+            }else{
+                res.send(data)
+            }
+        }
+    )
+})
+
 export default storageLibros;
